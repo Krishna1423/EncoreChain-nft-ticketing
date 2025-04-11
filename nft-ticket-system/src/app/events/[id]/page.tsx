@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import TicketInterface from "@/components/tickets/TicketInterface";
 import { ethers, formatEther, parseEther } from "ethers";
 import { getContract } from "@/utils/contract";
+import { imageMap } from "@/utils/eventMapping";
 
 type Event = {
   id: string;
@@ -25,12 +26,6 @@ export default function EventPage({ params }: { params: { id: string } }) {
         const eventId = parseInt(params.id);
 
         const eventData = await contract.getEventDetails(eventId);
-
-        // Map your eventId to an IPFS image
-        const imageMap: Record<number, string> = {
-          0: "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafybeihpu2ve2uwt367wz5464whtqwmbfi2orgdpoiqxs6s6f5lxy5djuq",
-          1: "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafybeieeh5mgpdxenbxbs5l4jdpw7jll3dhnqla5qawcki5pxsbirkvfqm",
-        };
 
         const seatTypes = ["VIP", "General", "Front Row", "Back Row", "Floor"];
         let minPrice = parseEther("1000000");

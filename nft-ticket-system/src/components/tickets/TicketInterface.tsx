@@ -2,6 +2,7 @@
 import { useWallet } from "@/context/WalletContext";
 import { useEffect, useState } from "react";
 import { formatEther, parseEther } from "ethers";
+import { getTokenURIByEventId } from "@/utils/eventMapping";
 
 interface TicketInterfaceProps {
   eventId: string;
@@ -41,7 +42,7 @@ export default function TicketInterface({
           "Front Row",
           "Back Row",
           "Floor",
-        ]; // you can define these somewhere globally
+        ];
 
         const results: SeatCategory[] = [];
 
@@ -84,22 +85,12 @@ export default function TicketInterface({
       setIsProcessing(true);
       setMessage(null);
       const totalPrice = (parseFloat(pricePerTicket) * quantity).toFixed(6);
-
-      let tokenURI = "";
-      if (eventId === "0") {
-        tokenURI =
-          "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafkreigcuvtkangakkjgvtif5s7xw4i2nwlw55pnvecyf6sw2ajv6a57hm";
-      } else if (eventId === "1") {
-        tokenURI =
-          "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafkreigcuvtkangakkjgvtif5s7xw4i2nwlw55pnvecyf6sw2ajv6a57hm"; // Example: ColdPlay Concert
-      } else {
-        tokenURI = ""; // Optional fallback
-      }
+      const tokenURI = getTokenURIByEventId(eventId);
 
       const tx = await contract.purchaseTickets(
         eventId,
         selectedSeatType,
-        tokenURI, // Replace with actual tokenURI
+        tokenURI,
         quantity,
         { value: parseEther(totalPrice) }
       );

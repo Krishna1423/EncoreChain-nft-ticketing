@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useWallet } from "@/context/WalletContext";
 import { formatEther, parseEther } from "ethers";
+import { imageMap } from "@/utils/eventMapping";
 
 type ResaleTicket = {
   ticketId: string;
@@ -12,11 +13,6 @@ type ResaleTicket = {
   date: string;
   venue: string;
   image: string;
-};
-
-const eventImages: Record<number, string> = {
-  0: "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafybeihpu2ve2uwt367wz5464whtqwmbfi2orgdpoiqxs6s6f5lxy5djuq",
-  1: "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafybeieeh5mgpdxenbxbs5l4jdpw7jll3dhnqla5qawcki5pxsbirkvfqm",
 };
 
 export default function SecondaryMarket() {
@@ -30,7 +26,6 @@ export default function SecondaryMarket() {
       const resaleList: ResaleTicket[] = [];
 
       try {
-        //const totalSupply = await contract.totalSupply(); // make sure totalSupply() is available in your contract
         const totalSupply = 10;
 
         for (let i = 0; i < Number(totalSupply); i++) {
@@ -48,7 +43,7 @@ export default function SecondaryMarket() {
               price: formatEther(price),
               date: details[1],
               venue: details[2],
-              image: eventImages[Number(eventId)] || "",
+              image: imageMap[Number(eventId)] || "",
             });
           }
         }

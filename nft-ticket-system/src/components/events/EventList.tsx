@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useWallet } from "@/context/WalletContext";
 import { formatEther, parseEther } from "ethers";
 import EventCard from "./EventCard";
+import { imageMap } from "@/utils/eventMapping";
 
 interface Event {
   id: string;
@@ -16,11 +17,6 @@ interface Event {
 export default function EventList() {
   const { contract } = useWallet();
   const [events, setEvents] = useState<Event[]>([]);
-
-  const eventImages: { [key: number]: string } = {
-    0: "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafybeihpu2ve2uwt367wz5464whtqwmbfi2orgdpoiqxs6s6f5lxy5djuq", // Summer Festival
-    1: "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafybeieeh5mgpdxenbxbs5l4jdpw7jll3dhnqla5qawcki5pxsbirkvfqm", // ColdPlay
-  };
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -59,7 +55,7 @@ export default function EventList() {
             name: details[0],
             date: details[1],
             venue: details[2],
-            image: eventImages[eventId],
+            image: imageMap[eventId],
             ticketPrice: priceRange,
           });
         } catch (err) {
