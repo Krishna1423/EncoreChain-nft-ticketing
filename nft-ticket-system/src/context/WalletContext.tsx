@@ -26,11 +26,11 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   const [network, setNetwork] = useState<string | null>(null);
   const [balance, setBalance] = useState<string | null>(null);
   const [contract, setContract] = useState<Contract | null>(null);
-  const [provider, setProvider] = useState<BrowserProvider | null>(null); // ✅ added provider
+  const [provider, setProvider] = useState<BrowserProvider | null>(null);
 
   const initializeContract = async (provider: BrowserProvider) => {
     const signer = await provider.getSigner();
-    const contractAddress = "0xfE8405eB5F951EcED65F9f2565aD17A8561e963F"; // Replace with actual address
+    const contractAddress = "0xf58A2830da86A14f313dae168FaF38e5e5cA492D";
     return new Contract(contractAddress, contractABI, signer);
   };
 
@@ -39,7 +39,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
 
     try {
       const newProvider = new BrowserProvider(window.ethereum);
-      setProvider(newProvider); // ✅ Save provider to state
+      setProvider(newProvider);
 
       const accounts = await newProvider.listAccounts();
       if (accounts.length > 0) {

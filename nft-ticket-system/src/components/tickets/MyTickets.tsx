@@ -79,23 +79,19 @@ export default function MyTickets() {
       );
       await tx.wait();
       setStatus((prev) => ({ ...prev, [ticketId]: "Listed!" }));
-    } catch (error) {
+    } catch (error: any) {
       let message = "Unknown error";
 
-      if (error instanceof Error) {
-        message = error.message;
-      } else if (
-        typeof error === "object" &&
-        error !== null &&
-        "message" in error
-      ) {
-        message = (error as any).message;
+      if (error?.reason) {
+        message = error.reason;
+      } else if (error?.message) {
+        const match = error.message.match(/execution reverted: (.*?)("|$)/);
+        message = match?.[1] || error.message;
       }
 
-      console.error("Listing failed:", message);
       setStatus((prev) => ({
         ...prev,
-        [ticketId]: `Listing failed: ${message}`,
+        [ticketId]: "Listing failed: " + message,
       }));
     }
   };
