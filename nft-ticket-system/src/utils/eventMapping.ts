@@ -5,8 +5,8 @@ export const imageMap: Record<number, string> = {
 
 export const getTokenURIByEventId = (eventId: string | number): string => {
   const uriMap: Record<string, string> = {
-    "0": "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafkreigcuvtkangakkjgvtif5s7xw4i2nwlw55pnvecyf6sw2ajv6a57hm",
-    "1": "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafkreidlpu5ntninwjqr4htdw4gyoy5tx436geatx3c4a6n6g3bhrt6oqu",
+    "0": "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafkreihy4654wyxo7aqyustzorsyo4bhxzuitihghwf6dms74xw44yhhqa",
+    "1": "https://aquamarine-above-viper-774.mypinata.cloud/ipfs/bafkreifxiru5qgbcv4g4nlramzrbjpmuu5z2issguremvgym4ei5xjhhgu",
   };
 
   return uriMap[eventId.toString()] || ""; // Empty fallback
